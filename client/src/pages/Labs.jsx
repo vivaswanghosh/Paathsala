@@ -36,7 +36,7 @@ function Labs() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Lab Assignments</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Lab Assignments</h1>
         {(role === 'teacher' || role === 'admin') && (
           <Link to="/app/labs/create" className="btn-primary">
             Create Lab
@@ -58,10 +58,10 @@ function Labs() {
               )}
             </div>
             
-            <h3 className="font-semibold text-gray-900 mb-2">{lab.title}</h3>
-            <p className="text-sm text-gray-500 mb-4 line-clamp-2">{lab.description}</p>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{lab.title}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">{lab.description}</p>
             
-            <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
+            <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
               <span className="flex items-center gap-1">
                 <HiOutlineClock className="w-4 h-4" />
                 Due: {new Date(lab.dueDate).toLocaleDateString()}
@@ -93,7 +93,7 @@ function Labs() {
       {labs.length === 0 && (
         <div className="text-center py-12">
           <HiOutlineCode className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">No lab assignments available</p>
+          <p className="text-gray-500 dark:text-gray-400">No lab assignments available</p>
         </div>
       )}
     </div>

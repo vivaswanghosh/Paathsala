@@ -80,7 +80,7 @@ function Routine() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Class Routine</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Class Routine</h1>
         {role === 'teacher' && (
           <button
             onClick={() => toast.success('Click on a class to mark as unavailable')}
@@ -96,9 +96,9 @@ function Routine() {
         <table className="w-full min-w-[800px]">
           <thead>
             <tr>
-              <th className="p-3 text-left text-sm font-medium text-gray-500 bg-gray-50">Time</th>
+              <th className="p-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">Time</th>
               {DAYS.map(day => (
-                <th key={day} className="p-3 text-center text-sm font-medium text-gray-500 bg-gray-50">
+                <th key={day} className="p-3 text-center text-sm font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900">
                   {day}
                 </th>
               ))}
@@ -106,8 +106,8 @@ function Routine() {
           </thead>
           <tbody>
             {TIME_SLOTS.map(timeSlot => (
-              <tr key={timeSlot} className="border-t border-gray-100">
-                <td className="p-3 text-sm font-medium text-gray-600">{timeSlot}</td>
+              <tr key={timeSlot} className="border-t border-gray-100 dark:border-gray-700">
+                <td className="p-3 text-sm font-medium text-gray-600 dark:text-gray-400">{timeSlot}</td>
                 {DAYS.map(day => {
                   const slot = getSlotContent(day, timeSlot)
                   return (
@@ -115,10 +115,10 @@ function Routine() {
                       {slot ? (
                         <div
                           className={`p-2 rounded-lg text-center cursor-pointer transition-colors ${slot.status === 'unavailable'
-                            ? 'bg-red-50 border border-red-200'
+                            ? 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800'
                             : slot.status === 'swapped'
-                              ? 'bg-yellow-50 border border-yellow-200'
-                              : 'bg-primary-50 border border-primary-200 hover:bg-primary-100'
+                              ? 'bg-yellow-50 dark:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-800'
+                              : 'bg-primary-50 dark:bg-primary-900/30 border border-primary-200 dark:border-primary-800 hover:bg-primary-100 dark:hover:bg-primary-800/50'
                             }`}
                           onClick={() => {
                             if (role === 'teacher' && slot.teacherId === user?._id) {
@@ -132,13 +132,13 @@ function Routine() {
                             }
                           }}
                         >
-                          <p className="font-medium text-sm">{slot.subject}</p>
-                          <p className="text-xs text-gray-500">{slot.room}</p>
+                          <p className="font-medium text-sm text-gray-900 dark:text-gray-100">{slot.subject}</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400">{slot.room}</p>
                           {slot.status === 'unavailable' && (
-                            <span className="text-xs text-red-600">Unavailable</span>
+                            <span className="text-xs text-red-600 dark:text-red-400">Unavailable</span>
                           )}
                           {slot.status === 'swapped' && (
-                            <span className="text-xs text-yellow-600">Swapped</span>
+                            <span className="text-xs text-yellow-600 dark:text-yellow-400">Swapped</span>
                           )}
                         </div>
                       ) : (
@@ -159,10 +159,10 @@ function Routine() {
           <h2 className="text-lg font-semibold mb-4">Available Classes to Take</h2>
           <div className="space-y-3">
             {swapRequests.map(request => (
-              <div key={request._id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div key={request._id} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-lg">
                 <div>
                   <p className="font-medium">{request.subject}</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mt-1">
+                  <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mt-1">
                     <span className="flex items-center gap-1">
                       <HiOutlineClock className="w-4 h-4" />
                       {request.day} • {request.timeSlot}
@@ -188,9 +188,9 @@ function Routine() {
       {/* Unavailable Modal */}
       {showUnavailableModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-4">Mark as Unavailable</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
               This will notify all teachers in your department that you're unavailable for this class.
               Another teacher can take this class.
             </p>

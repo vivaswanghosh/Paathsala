@@ -39,10 +39,10 @@ function ChangePassword() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
       <div className="card max-w-md w-full">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Change Password</h1>
-        <p className="text-gray-600 mb-6">Please change your temporary password to continue</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Change Password</h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">Please change your temporary password to continue</p>
         
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

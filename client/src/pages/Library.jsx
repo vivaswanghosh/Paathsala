@@ -99,7 +99,7 @@ function Library() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Central Library</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Central Library</h1>
         {(role === 'teacher' || role === 'admin') && (
           <button onClick={() => setShowUploadModal(true)} className="btn-primary">
             <HiOutlineUpload className="w-5 h-5 mr-2 inline" />
@@ -158,8 +158,8 @@ function Library() {
               <span className="text-xs text-gray-400">{resource.subject}</span>
             </div>
             
-            <h3 className="font-semibold text-gray-900 mb-2">{resource.title}</h3>
-            <p className="text-sm text-gray-500 mb-4 line-clamp-2">{resource.description}</p>
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{resource.title}</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">{resource.description}</p>
             
             <div className="text-xs text-gray-400 mb-4">
               Added {new Date(resource.uploadedAt).toLocaleDateString()}
@@ -191,14 +191,14 @@ function Library() {
       {resources.length === 0 && (
         <div className="text-center py-12">
           <HiOutlineDocument className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">No resources found</p>
+          <p className="text-gray-500 dark:text-gray-400">No resources found</p>
         </div>
       )}
 
       {/* Upload Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-semibold mb-4">Upload Resource</h3>
             <form onSubmit={handleUpload} className="space-y-4">
               <div>

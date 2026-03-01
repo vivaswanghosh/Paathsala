@@ -19,6 +19,12 @@ const examSchema = new mongoose.Schema({
   totalPoints: { type: Number },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   isPublished: { type: Boolean, default: false },
+  // NEW: Status field to control exam state manually
+  status: {
+    type: String,
+    enum: ['scheduled', 'live', 'ended'],
+    default: 'scheduled'
+  },
   createdAt: { type: Date, default: Date.now }
 })
 

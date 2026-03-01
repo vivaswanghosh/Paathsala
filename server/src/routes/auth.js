@@ -23,6 +23,7 @@ router.get('/me', checkJwt, async (req, res) => {
       { upsert: true, new: true }
     )
 
+    // Send pending notifications count if user is found
     res.json({ user })
   } catch (error) {
     console.error('Error in /me route:', error)

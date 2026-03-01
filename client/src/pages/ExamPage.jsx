@@ -165,7 +165,7 @@ function ExamPage() {
       <div className="min-h-screen flex items-center justify-center p-4">
         <div className="card max-w-lg w-full text-center">
           <h1 className="text-2xl font-bold mb-2">{exam.title}</h1>
-          <p className="text-gray-500 mb-6">{exam.subject}</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-6">{exam.subject}</p>
           
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-left">
             <h3 className="font-semibold text-yellow-800 mb-2">Important Instructions:</h3>
@@ -187,12 +187,12 @@ function ExamPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-800">
       {/* Header */}
-      <div className="bg-white shadow-sm sticky top-0 z-10">
+      <div className="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <h1 className="font-semibold">{exam.title}</h1>
-          <div className={`text-2xl font-mono font-bold ${timeLeft < 300 ? 'text-red-600' : 'text-gray-900'}`}>
+          <div className={`text-2xl font-mono font-bold ${timeLeft < 300 ? 'text-red-600' : 'text-gray-900 dark:text-gray-100'}`}>
             {formatTime(timeLeft)}
           </div>
         </div>
@@ -207,7 +207,7 @@ function ExamPage() {
                 {index + 1}
               </span>
               <div className="flex-1">
-                <p className="font-medium text-gray-900 mb-4">{question.text}</p>
+                <p className="font-medium text-gray-900 dark:text-gray-100 mb-4">{question.text}</p>
                 
                 {question.type === 'mcq' ? (
                   <div className="space-y-2">
@@ -217,7 +217,7 @@ function ExamPage() {
                         className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer border transition-colors ${
                           answers[question._id] === optIndex
                             ? 'border-primary-500 bg-primary-50'
-                            : 'border-gray-200 hover:border-gray-300'
+                            : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:border-gray-600'
                         }`}
                       >
                         <input
@@ -246,9 +246,9 @@ function ExamPage() {
       </div>
 
       {/* Submit Button */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 dark:text-gray-400">
             {Object.keys(answers).length} of {exam.questions.length} answered
           </p>
           <button onClick={submitExam} className="btn-primary px-8">

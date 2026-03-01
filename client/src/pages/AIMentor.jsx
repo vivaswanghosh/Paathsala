@@ -57,24 +57,24 @@ function AIMentor() {
   return (
     <div className="h-[calc(100vh-120px)] flex flex-col">
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-900">AI Mentor</h1>
-        <p className="text-gray-500">Your personal learning assistant with real-time resources</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">AI Mentor</h1>
+        <p className="text-gray-500 dark:text-gray-400">Your personal learning assistant with real-time resources</p>
       </div>
 
-      <div className="flex-1 flex flex-col bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="flex-1 flex flex-col bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
         {/* Messages */}
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 && (
             <div className="text-center py-12">
               <HiOutlineLightBulb className="w-12 h-12 text-primary-400 mx-auto mb-4" />
-              <p className="text-gray-500 mb-4">Hi {user?.name}! I'm your AI Mentor.</p>
+              <p className="text-gray-500 dark:text-gray-400 mb-4">Hi {user?.name}! I'm your AI Mentor.</p>
               <p className="text-gray-400 text-sm mb-6">Ask me anything about your studies!</p>
               <div className="flex flex-wrap gap-2 justify-center">
                 {suggestions.map((suggestion, index) => (
                   <button
                     key={index}
                     onClick={() => setInput(suggestion)}
-                    className="text-sm px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                    className="text-sm px-3 py-1.5 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 rounded-full transition-colors"
                   >
                     {suggestion}
                   </button>
@@ -93,7 +93,7 @@ function AIMentor() {
                   className={`p-4 rounded-2xl ${
                     msg.role === 'user'
                       ? 'bg-primary-600 text-white rounded-br-md'
-                      : 'bg-gray-100 text-gray-900 rounded-bl-md'
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-md'
                   }`}
                 >
                   <p className="whitespace-pre-wrap">{msg.content}</p>
@@ -101,7 +101,7 @@ function AIMentor() {
                 
                 {msg.sources && msg.sources.length > 0 && (
                   <div className="mt-2 space-y-1">
-                    <p className="text-xs text-gray-500">Sources:</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Sources:</p>
                     {msg.sources.map((source, sIndex) => (
                       <a
                         key={sIndex}
@@ -121,7 +121,7 @@ function AIMentor() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 p-4 rounded-2xl rounded-bl-md">
+              <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-2xl rounded-bl-md">
                 <div className="flex gap-1">
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -135,7 +135,7 @@ function AIMentor() {
         </div>
 
         {/* Input */}
-        <form onSubmit={sendMessage} className="border-t border-gray-200 p-4">
+        <form onSubmit={sendMessage} className="border-t border-gray-200 dark:border-gray-700 p-4">
           <div className="flex gap-2">
             <input
               type="text"

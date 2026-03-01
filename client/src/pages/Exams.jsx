@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import api from '../utils/api.js'
 import toast from 'react-hot-toast'
-import { HiOutlineClock, HiOutlineDocumentText } from 'react-icons/hi'
+import { HiOutlineClock, HiOutlineDocumentText, HiOutlinePlay } from 'react-icons/hi'
 
 function Exams() {
   const { role } = useAuth()
@@ -25,13 +25,33 @@ function Exams() {
     }
   }
 
+  // NEW: Function to handle starting exam early
+  const handleStartEarly = async (examId) => {
+    if (!window.confirm('Are you sure you want to start this exam now? This will make it visible to all students immediately.')) return
+
+    try {
+      await api.patch(`/exam/${examId}/status`, { status: 'live' })
+      toast.success('Exam started successfully!')
+      fetchExams() // Refresh list
+    } catch (error) {
+      toast.error(error.response?.data?.error || 'Failed to start exam')
+    }
+  }
+
   const getExamStatus = (exam) => {
+    // 1. Manual Override (Teacher Started Early)
+    if (exam.status === 'live') return { label: 'Live Now', color: 'green' }
+    if (exam.status === 'ended') return { label: 'Ended', color: 'gray' }
+
+    // 2. Student Submission Status
+    if (exam.attempt?.status === 'submitted') return { label: 'Completed', color: 'green' }
+    if (exam.attempt?.status === 'auto_submitted') return { label: 'Auto-Submitted', color: 'red' }
+
+    // 3. Time Based Logic (Default)
     const now = new Date()
     const start = new Date(exam.startTime)
     const end = new Date(exam.endTime)
 
-    if (exam.attempt?.status === 'submitted') return { label: 'Completed', color: 'green' }
-    if (exam.attempt?.status === 'auto_submitted') return { label: 'Auto-Submitted', color: 'red' }
     if (now < start) return { label: 'Upcoming', color: 'blue' }
     if (now >= start && now <= end) return { label: 'Available', color: 'yellow' }
     return { label: 'Ended', color: 'gray' }
@@ -48,7 +68,7 @@ function Exams() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Examinations</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Examinations</h1>
         {(role === 'teacher' || role === 'admin') && (
           <Link to="/app/exams/create" className="btn-primary">
             Create Exam
@@ -65,10 +85,10 @@ function Exams() {
                 <span className="badge badge-blue">{exam.subject}</span>
                 <span className={`badge badge-${status.color}`}>{status.label}</span>
               </div>
-              
-              <h3 className="font-semibold text-gray-900 mb-2">{exam.title}</h3>
-              
-              <div className="space-y-2 text-sm text-gray-500 mb-4">
+
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">{exam.title}</h3>
+
+              <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400 mb-4">
                 <div className="flex items-center gap-2">
                   <HiOutlineClock className="w-4 h-4" />
                   <span>
@@ -88,8 +108,9 @@ function Exams() {
                   </p>
                 </div>
               )}
-              
-              {status.label === 'Available' && !exam.attempt && (
+
+              {/* Student Actions */}
+              {(status.label === 'Available' || status.label === 'Live Now') && !exam.attempt && (
                 <Link
                   to={`/app/exams/${exam._id}`}
                   className="btn-primary w-full text-center block"
@@ -97,7 +118,7 @@ function Exams() {
                   Start Exam
                 </Link>
               )}
-              
+
               {status.label === 'Completed' && (
                 <Link
                   to={`/app/exams/${exam._id}/result`}
@@ -112,6 +133,17 @@ function Exams() {
                   Auto-submitted. Contact admin for re-approval.
                 </div>
               )}
+
+              {/* --- NEW: Teacher Actions --- */}
+              {(role === 'teacher' || role === 'admin') && status.label === 'Upcoming' && exam.status !== 'live' && (
+                <button
+                  onClick={() => handleStartEarly(exam._id)}
+                  className="btn bg-green-600 hover:bg-green-700 text-white w-full mt-2 flex items-center justify-center gap-2"
+                >
+                  <HiOutlinePlay className="w-5 h-5" />
+                  Start Exam Now
+                </button>
+              )}
             </div>
           )
         })}
@@ -120,7 +152,7 @@ function Exams() {
       {exams.length === 0 && (
         <div className="text-center py-12">
           <HiOutlineDocumentText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">No exams scheduled</p>
+          <p className="text-gray-500 dark:text-gray-400">No exams scheduled</p>
         </div>
       )}
     </div>

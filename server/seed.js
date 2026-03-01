@@ -495,7 +495,7 @@ async function seed() {
     { title: 'Independence Day', description: 'National Holiday', date: new Date('2026-08-15'), type: 'holiday', createdBy: adminId },
 
     // College special events
-    { title: 'AOT Foundation Day', description: 'Annual celebration of Academy of Technology founding', date: futureDate(10), type: 'special_holiday', createdBy: adminId },
+    { title: 'AOT Foundation Day', description: 'Annual celebration of Paathsala founding', date: futureDate(10), type: 'special_holiday', createdBy: adminId },
     { title: 'Annual Sports Day', description: 'Inter-department sports competition', date: futureDate(20), endDate: futureDate(21), type: 'special_holiday', createdBy: adminId },
     { title: 'Saraswati Puja', description: 'Cultural celebration at campus', date: new Date('2026-02-12'), type: 'special_holiday', createdBy: adminId },
 
@@ -532,7 +532,7 @@ async function seed() {
   await LibraryResource.insertMany(allResources)
   console.log(`✅ Library Resources seeded (${allResources.length} total)`)
 
-  console.log('\n🎉 Academy of Technology — All seed data inserted successfully!')
+  console.log('\n🎉 Paathsala — All seed data inserted successfully!')
   console.log('   📊 Summary:')
   console.log(`      Teachers:           ${Object.values(teacherMap).flat().length}`)
   console.log(`      Weekly Routines:     ${routines.length}`)
