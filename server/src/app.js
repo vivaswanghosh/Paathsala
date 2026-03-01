@@ -24,7 +24,8 @@ import notificationRoutes from './routes/notifications.js'
 import forumRoutes from './routes/forum.js'
 import announcementRoutes from './routes/announcements.js'
 import assignmentRoutes from './routes/assignments.js'
-import eventRoutes from './routes/events.js' // Added
+import eventRoutes from './routes/events.js'
+import securityRoutes from './routes/security.js'
 
 import { errorHandler } from './middleware/error.js'
 
@@ -147,7 +148,8 @@ app.use('/api/notifications', notificationRoutes)
 app.use('/api/forum', forumRoutes)
 app.use('/api/announcements', announcementRoutes)
 app.use('/api/assignments', assignmentRoutes)
-app.use('/api/events', eventRoutes) // Added
+app.use('/api/events', eventRoutes)
+app.use('/api/security', securityRoutes)
 
 // Serve static files from 'uploads' directory
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')))

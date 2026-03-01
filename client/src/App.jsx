@@ -33,6 +33,7 @@ import Assignments from './pages/Assignments.jsx'
 import AssignmentDetail from './pages/AssignmentDetail.jsx'
 import Events from './pages/Events.jsx'
 import Notifications from './pages/Notifications.jsx'
+import SecurityDashboard from './pages/SecurityDashboard.jsx'
 
 // Component to handle session checks
 const SessionHandler = ({ children }) => {
@@ -112,7 +113,8 @@ function App() {
                   <Route path="assignments" element={<Assignments />} />
                   <Route path="assignments/:id" element={<AssignmentDetail />} />
                   <Route path="events" element={<Events />} />
-                  <Route path="notifications" element={<Notifications />} />
+<Route path="notifications" element={<Notifications />} />
+                  <Route path="security" element={<SecurityDashboard />} />
 
                   <Route path="admin/*" element={
                     <RoleRoute allowedRoles={['admin']}>
